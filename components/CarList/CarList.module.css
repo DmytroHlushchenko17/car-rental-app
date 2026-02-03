@@ -1,0 +1,60 @@
+.carList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+}
+.carListItem {
+  max-width: 276px;
+  min-height: 424px;
+}
+.carListItemImage {
+  border-radius: 14px;
+}
+.carListItemBlock {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-top: 16px;
+  padding-bottom: 26px;
+}
+.carListItemBrand {
+  font-family: "Manrope", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  color: #101828;
+}
+.carListItemModel {
+  font-family: "Manrope", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  color: #3470ff;
+}
+.carListItemPrice {
+  font-family: "Manrope", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  color: #101828;
+  margin-bottom: 8px;
+}
+.carListItemText {
+  font-family: "Manrope", sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.33;
+  color: #8d929a;
+}
+.carListItemBtn {
+  font-family: "Manrope", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.25;
+  color: #fff;
+  border-radius: 12px;
+  padding: 12px 99px;
+  min-width: 276px;
+  max-height: 44px;
+  background: #3470ff;
+}

@@ -10,13 +10,19 @@ const Header = () => {
         </svg>
       </Link>
 
-      <nav className={css.navList}>
-        <Link className={css.navHome} href="/">
-          Home
-        </Link>
-        <Link className={css.navCatalog} href="/catalog">
-          Catalog
-        </Link>
+      <nav>
+        <ul className={css.navList}>
+          <li>
+            <Link className={css.navHome} href="/">
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link className={css.navCatalog} href="/catalog">
+              Catalog
+            </Link>
+          </li>
+        </ul>
       </nav>
     </div>
   );
