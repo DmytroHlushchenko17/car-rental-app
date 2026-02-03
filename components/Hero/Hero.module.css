@@ -41,4 +41,11 @@
   min-width: 276px;
   background: #3470ff;
   border: none;
+  &:focus {
+    background: #0b44cd;
+  }
+
+  &:hover {
+    background: #0b44cd;
+  }
 }

@@ -3,7 +3,6 @@ import { getAllCars } from "@/lib/carsService";
 
 const Page = async () => {
   const data = await getAllCars();
-  console.log(data);
 
   return (
     <div>

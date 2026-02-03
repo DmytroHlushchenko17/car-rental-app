@@ -1,3 +1,8 @@
+.section {
+  padding-top: 208px;
+  padding-bottom: 248px;
+}
+
 .carList {
   display: flex;
   flex-wrap: wrap;
@@ -38,6 +43,7 @@
   line-height: 1.25;
   color: #101828;
   margin-bottom: 8px;
+  padding-right: 12px;
 }
 .carListItemText {
   font-family: "Manrope", sans-serif;
@@ -53,8 +59,15 @@
   line-height: 1.25;
   color: #fff;
   border-radius: 12px;
-  padding: 12px 99px;
+  padding: 12px 96px;
   min-width: 276px;
   max-height: 44px;
   background: #3470ff;
+  &:focus {
+    background: #0b44cd;
+  }
+
+  &:hover {
+    background: #0b44cd;
+  }
 }
