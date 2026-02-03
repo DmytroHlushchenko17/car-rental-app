@@ -1,7 +1,7 @@
 .hero {
   max-width: 1440px;
   min-height: 700px;
-  background-image: url("../../../public/PictureCar.webp");
+  background-image: url("../../public/PictureCar.webp");
   background-size: cover;
   background-position: center;
   display: flex;
