@@ -1,7 +1,7 @@
 .header {
   border-bottom: 1px solid #f2f4f7;
   padding: 24px 120px;
-  max-width: 1440px;
+  width: 1440px;
   background: #f2f4f7;
   display: flex;
   justify-content: space-between;

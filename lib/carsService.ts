@@ -1,8 +1,8 @@
 import { Car, GetCarsResponse } from "@/types/cars";
 import axios from "axios";
 
-export async function getAllCars() {
-  const url = "https://car-rental-api.goit.global/cars";
+export async function getAllCars(page: number = 1, limit: number = 12) {
+  const url = `https://car-rental-api.goit.global/cars?page=${page}&limit=${limit}`;
   const res = await axios.get<GetCarsResponse>(url);
   return res.data;
 }

@@ -8,12 +8,12 @@ export interface Car {
   description: string;
   fuelConsumption: string;
   engineSize: string;
-  accessories: [string];
-  functionalities: [string];
+  accessories: [string, string?, string?];
+  functionalities: [string, string?, string?];
   rentalPrice: string;
   rentalCompany: string;
   address: string;
-  rentalConditions: [string];
+  rentalConditions: [string, string?, string?];
   mileage: number;
 }
 

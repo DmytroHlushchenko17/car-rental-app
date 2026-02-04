@@ -7,13 +7,31 @@
   display: flex;
   flex-wrap: wrap;
   gap: 32px;
+  margin-bottom: 80px;
 }
 .carListItem {
   max-width: 276px;
   min-height: 424px;
 }
+.imageBlock {
+  position: relative;
+  display: block;
+  width: 276px;
+  height: 268px;
+}
 .carListItemImage {
   border-radius: 14px;
+  object-fit: cover;
+  position: relative;
+}
+.iconHeart {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  fill: none;
+  stroke: #f2f4f7;
+  cursor: pointer;
+  transition: stroke 0.3s ease, fill 0.3s ease;
 }
 .carListItemBlock {
   display: flex;
@@ -69,5 +87,26 @@
 
   &:hover {
     background: #0b44cd;
+  }
+}
+.carListBtn {
+  font-family: "Manrope", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.25;
+  color: #101828;
+  border: 1px solid #3470ff;
+  border-radius: 12px;
+  padding: 12px 51px;
+  min-width: 156px;
+  max-height: 44px;
+  background: #fff;
+  margin-left: 522px;
+  &:focus {
+    border: 1px solid #0b44cd;
+  }
+
+  &:hover {
+    border: 1px solid #0b44cd;
   }
 }
