@@ -1,5 +1,5 @@
 .section {
-  padding-top: 208px;
+  padding-top: 84px;
   padding-bottom: 248px;
 }
 
@@ -31,7 +31,9 @@
   fill: none;
   stroke: #f2f4f7;
   cursor: pointer;
-  transition: stroke 0.3s ease, fill 0.3s ease;
+  transition:
+    stroke 0.3s ease,
+    fill 0.3s ease;
 }
 .carListItemBlock {
   display: flex;

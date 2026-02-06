@@ -1,6 +1,7 @@
 import { getCarDetails } from "@/lib/carsService";
 import css from "./CarDetails.module.css";
 import Image from "next/image";
+import Form from "@/components/Form/Form";
 
 interface CarDetailsProps {
   params: Promise<{ carId: string }>;
@@ -19,50 +20,10 @@ const CarDetails = async ({ params }: CarDetailsProps) => {
             alt="car"
             width="640"
             height="512"
+            loading="eager"
           />
-          <form className={css.Form}>
-            <h3 className={css.blockFormTitel}>Book your car now</h3>
-            <p className={css.blockFormText}>
-              Stay connected! We are always ready to help you.
-            </p>
-            <label className={css.blockFormLabel}>
-              <input
-                className={css.blockFormInput}
-                type="text"
-                name="text"
-                placeholder="Name*"
-              />
-            </label>
-            <label className={css.blockFormLabel}>
-              <input
-                className={css.blockFormInput}
-                type="email"
-                name="email"
-                placeholder="Email*"
-              />
-            </label>
-            <label className={css.blockFormLabel}>
-              <input
-                className={css.blockFormInput}
-                type="date"
-                name="date"
-                placeholder="Booking date"
-              />
-            </label>
-            <label className={css.blockFormLabel}>
-              <input
-                className={css.blockFormInputTextarea}
-                type="textarea"
-                name="textarea"
-                placeholder="Comment"
-              />
-            </label>
-            <button type="reset" className={css.blockFormBtn}>
-              Send
-            </button>
-          </form>
+          <Form />
         </div>
-
         <div className={css.carDetailsBlockDetails}>
           <p className={css.carDetailsBlockDetailsTitle}>
             {carDetails.brand} {carDetails.model}, {carDetails.year}
@@ -74,7 +35,8 @@ const CarDetails = async ({ params }: CarDetailsProps) => {
             <svg className={css.locationIcon} width="16" height="16">
               <use href="/Icoms.svg#Location" />
             </svg>
-            {carDetails.address} Mileage:{carDetails.mileage} km
+            {carDetails.address} Mileage:
+            {carDetails.mileage.toLocaleString("ru-RU")} km
           </p>
           <p className={css.carDetailsBlockDetailsPrice}>
             ${carDetails.rentalPrice}

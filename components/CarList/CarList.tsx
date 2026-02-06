@@ -15,6 +15,7 @@ interface CarListProps {
 const CarList = ({ cars }: CarListProps) => {
   const {
     allCars,
+    filteredCars,
     favorites,
     page,
     hasMore,
@@ -30,6 +31,8 @@ const CarList = ({ cars }: CarListProps) => {
       setAllCars(cars);
     }
   }, [cars, allCars.length, setAllCars]);
+
+  const { rehydrated } = useCarStore();
 
   const handleLoad = async () => {
     const nextPage = page + 1;
@@ -52,8 +55,8 @@ const CarList = ({ cars }: CarListProps) => {
           <CustomAriaLive />
         </div>
         <ul className={css.carList}>
-          {allCars.map((el) => {
-            const isFavorite = favorites.includes(el.id);
+          {filteredCars.map((el) => {
+            const isFavorite = rehydrated ? favorites.includes(el.id) : false;
             return (
               <li className={css.carListItem} key={el.id}>
                 <div className={css.imageBlock}>
@@ -63,6 +66,7 @@ const CarList = ({ cars }: CarListProps) => {
                     alt="car"
                     width="276"
                     height="268"
+                    loading="eager"
                   />
                   <svg
                     className={css.iconHeart}
@@ -85,8 +89,8 @@ const CarList = ({ cars }: CarListProps) => {
                   </p>
                   <p className={css.carListItemPrice}>${el.rentalPrice}</p>
                   <p className={css.carListItemText}>
-                    {el.address} | {el.rentalCompany} | {el.type} | {el.mileage}{" "}
-                    km
+                    {el.address} | {el.rentalCompany} | {el.type} |{" "}
+                    {el.mileage.toLocaleString("ru-RU")} km
                   </p>
                 </div>
                 <Link href={`/catalog/${el.id}`}>
