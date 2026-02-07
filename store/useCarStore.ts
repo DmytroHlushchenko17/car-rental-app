@@ -70,7 +70,7 @@ export const useCarStore = create<CarState>()(
           const filtered = state.allCars.filter((car) => {
             const matchesBrand = brand ? car.brand === brand : true;
             const matchesPrice = price
-              ? Number(car.rentalPrice.replace("$", "")) <= Number(price)
+              ? Number(car.rentalPrice.replace("$", "")) === Number(price)
               : true;
             const matchesFrom = mileageFrom
               ? car.mileage >= Number(mileageFrom)

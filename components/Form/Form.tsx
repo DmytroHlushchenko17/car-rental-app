@@ -1,7 +1,8 @@
 "use client";
-
 import { useState } from "react";
 import css from "./Form.module.css";
+import Demo from "../Calendar/Calendar";
+import { removeSpaces } from "@/types/cars";
 
 export default function BookingForm() {
   const [name, setName] = useState("");
@@ -12,7 +13,7 @@ export default function BookingForm() {
     setter: (val: string) => void,
     value: string
   ) => {
-    setter(value.replace(/\s/g, ""));
+    setter(removeSpaces(value));
   };
 
   return (
@@ -48,12 +49,7 @@ export default function BookingForm() {
         />
       </label>
       <label className={css.blockFormLabel}>
-        <input
-          className={css.blockFormInput}
-          type="date"
-          name="date"
-          placeholder="Booking date"
-        />
+        <Demo />
       </label>
       <label className={css.blockFormLabel}>
         <textarea

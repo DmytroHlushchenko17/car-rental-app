@@ -41,6 +41,10 @@
   min-width: 276px;
   background: #3470ff;
   border: none;
+  cursor: pointer;
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
   &:focus {
     background: #0b44cd;
   }

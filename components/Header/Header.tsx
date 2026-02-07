@@ -3,7 +3,7 @@ import css from "./Header.module.css";
 
 const Header = () => {
   return (
-    <div className={css.header}>
+    <header className={css.header}>
       <Link href="/">
         <svg width="104" height="16">
           <use href="/Icoms.svg#Logo" />
@@ -24,7 +24,7 @@ const Header = () => {
           </li>
         </ul>
       </nav>
-    </div>
+    </header>
   );
 };
 

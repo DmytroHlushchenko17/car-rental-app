@@ -2,9 +2,26 @@ import { getCarDetails } from "@/lib/carsService";
 import css from "./CarDetails.module.css";
 import Image from "next/image";
 import Form from "@/components/Form/Form";
+import { Metadata } from "next";
+import { formatMileage } from "@/types/cars";
 
 interface CarDetailsProps {
   params: Promise<{ carId: string }>;
+}
+
+export async function generateMetadata({
+  params,
+}: CarDetailsProps): Promise<Metadata> {
+  const { carId } = await params;
+  const car = await getCarDetails(carId);
+
+  return {
+    title: `${car.brand} ${car.model} Rental | RentDrive`,
+    description: `Rent a ${car.brand} ${car.model} (${car.year}). ${car.description.substring(0, 150)}...`,
+    openGraph: {
+      images: [car.img],
+    },
+  };
 }
 
 const CarDetails = async ({ params }: CarDetailsProps) => {
@@ -26,17 +43,19 @@ const CarDetails = async ({ params }: CarDetailsProps) => {
         </div>
         <div className={css.carDetailsBlockDetails}>
           <p className={css.carDetailsBlockDetailsTitle}>
-            {carDetails.brand} {carDetails.model}, {carDetails.year}
+            {carDetails.brand}{" "}
+            <span className={css.carListItemModel}>{carDetails.model}</span>,{" "}
+            {carDetails.year}
             <span className={css.carDetailsBlockDetailsId}>
-              id:{carDetails.id}
+              id:{" "}{carDetails.id}
             </span>
           </p>
           <p className={css.carDetailsBlockDetailsAddress}>
             <svg className={css.locationIcon} width="16" height="16">
               <use href="/Icoms.svg#Location" />
             </svg>
-            {carDetails.address} Mileage:
-            {carDetails.mileage.toLocaleString("ru-RU")} km
+            {carDetails.address}{" "}|{" "}Mileage:{" "}
+            {formatMileage(carDetails.mileage)}
           </p>
           <p className={css.carDetailsBlockDetailsPrice}>
             ${carDetails.rentalPrice}

@@ -23,3 +23,10 @@ export interface GetCarsResponse {
   totalPages: number;
   cars: Car[];
 }
+export const removeSpaces = (value: string): string => {
+  return value.replace(/\s/g, "");
+};
+
+export const formatMileage = (mileage: number): string => {
+  return `${mileage.toLocaleString("ru-RU")} km`;
+};
