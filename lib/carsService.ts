@@ -1,6 +1,6 @@
 import { Car, GetCarsResponse } from "@/types/cars";
 import axios from "axios";
-const api = process.env.KEY_BASE_URL;
+const api = process.env.NEXT_PUBLIC_KEY_BASE_URL;
 
 export async function getAllCars(page: number = 1, limit: number = 12) {
   const url = `${api}/cars?page=${page}&limit=${limit}`;

@@ -29,6 +29,7 @@ const CarList = ({ cars }: CarListProps) => {
   } = useCarStore();
 
   const [isLoading, setIsLoading] = useState(false);
+  const [loadError, setLoadError] = useState<string | null>(null);
 
   useEffect(() => {
     if (allCars.length === 0) {
@@ -40,6 +41,7 @@ const CarList = ({ cars }: CarListProps) => {
 
   const handleLoad = async () => {
     setIsLoading(true);
+    setLoadError(null);
     try {
       const nextPage = page + 1;
       const data = await getAllCars(nextPage);
@@ -52,8 +54,8 @@ const CarList = ({ cars }: CarListProps) => {
       if (nextPage >= data.totalPages) {
         setHasMore(false);
       }
-    } catch (error) {
-      console.error(error);
+    } catch {
+      setLoadError("Failed to load more cars. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -91,7 +93,7 @@ const CarList = ({ cars }: CarListProps) => {
                       />
                     </svg>
                   </div>
-                    <div className={css.carListItemBlock}>
+                  <div className={css.carListItemBlock}>
                     <p className={css.carListItemBrand}>
                       {el.brand}{" "}
                       <span className={css.carListItemModel}>{el.model}</span>,{" "}
@@ -99,11 +101,14 @@ const CarList = ({ cars }: CarListProps) => {
                     </p>
                     <p className={css.carListItemPrice}>${el.rentalPrice}</p>
                     <p className={css.carListItemText}>
-                      {el.address}{" "}|{" "} {el.rentalCompany}{" "}|{" "} {el.type}{" "}|{" "}
+                      {el.address} | {el.rentalCompany} | {el.type} |{" "}
                       {formatMileage(el.mileage)}
                     </p>
                   </div>
-                  <Link href={`/catalog/${el.id}`} className={css.carListItemBtn}>
+                  <Link
+                    href={`/catalog/${el.id}`}
+                    className={css.carListItemBtn}
+                  >
                     Read more
                   </Link>
                 </li>
@@ -113,6 +118,9 @@ const CarList = ({ cars }: CarListProps) => {
             <p className={css.noCarsFound}>This car is not on the list</p>
           )}
         </ul>
+        {loadError && (
+          <p style={{ color: "#c92a2a", marginTop: 12 }}>Error: {loadError}</p>
+        )}
         {isLoading && <Loader />}
         {!isLoading && hasMore && (
           <button className={css.carListBtn} type="button" onClick={handleLoad}>
