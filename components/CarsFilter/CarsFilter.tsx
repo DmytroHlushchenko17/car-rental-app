@@ -1,7 +1,7 @@
 "use client";
 import css from "./CarsFilter.module.css";
 import { useState, useMemo, useId } from "react";
-import Select from "react-select";
+import Select, { components, ClearIndicatorProps } from "react-select";
 import { useCarStore } from "@/store/useCarStore";
 import { removeSpaces } from "@/types/cars";
 
@@ -15,6 +15,35 @@ interface PriceOption {
   label: string;
 }
 
+const CustomClearIndicator = (props: ClearIndicatorProps<any>) => {
+  return (
+    <div {...(props.innerProps as any)} className={css.clearIndicator}>
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 18 18"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M13.5 4.5L4.5 13.5"
+          stroke="#121417"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M4.5 4.5L13.5 13.5"
+          stroke="#121417"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </div>
+  );
+};
+
 export default function CarsFilter() {
   const brandId = useId();
   const priceId = useId();
@@ -25,7 +54,7 @@ export default function CarsFilter() {
   const [mileageFrom, setMileageFrom] = useState("");
   const [mileageTo, setMileageTo] = useState("");
 
-  const { allCars, setFilters } = useCarStore();
+  const { allCars, setFilters, isLoading } = useCarStore();
 
   const brandOptions = useMemo(() => {
     const brands = Array.from(new Set(allCars.map((car) => car.brand)));
@@ -42,9 +71,9 @@ export default function CarsFilter() {
     return prices;
   }, []);
 
-  const handleSearch = (e: React.FormEvent) => {
+  const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
-    setFilters({
+    await setFilters({
       brand: brand?.value || null,
       price: price?.value || null,
       mileageFrom,
@@ -56,6 +85,10 @@ export default function CarsFilter() {
     unstyled: true,
     noOptionsMessage: () => "This car is not on the list",
     isClearable: true,
+    isDisabled: isLoading,
+    components: {
+      ClearIndicator: CustomClearIndicator,
+    },
     classNames: {
       control: () => css.selectControl,
       placeholder: () => css.placeholder,
@@ -128,6 +161,7 @@ export default function CarsFilter() {
               className={css.mileageInputLeft}
               value={mileageFrom}
               onChange={(e) => setMileageFrom(removeSpaces(e.target.value))}
+              disabled={isLoading}
             />
           </div>
           <div className={css.mileageInputContainer}>
@@ -137,13 +171,14 @@ export default function CarsFilter() {
               className={css.mileageInputRight}
               value={mileageTo}
               onChange={(e) => setMileageTo(removeSpaces(e.target.value))}
+              disabled={isLoading}
             />
           </div>
         </div>
       </div>
 
-      <button type="submit" className={css.searchButton}>
-        Search
+      <button type="submit" className={css.searchButton} disabled={isLoading}>
+        {isLoading ? "Searching..." : "Search"}
       </button>
     </form>
   );

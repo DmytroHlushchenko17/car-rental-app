@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import css from "./Form.module.css";
 import Demo from "../Calendar/Calendar";
 import { removeSpaces } from "@/types/cars";
@@ -16,8 +17,21 @@ export default function BookingForm() {
     setter(removeSpaces(value));
   };
 
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (name && email) {
+      toast.success("Form successfully submitted!");
+      setName("");
+      setEmail("");
+    } else {
+      toast.error("Please fill in all required fields.");
+    }
+  };
+
   return (
-    <form className={css.Form}>
+    <form className={css.Form} onSubmit={handleSubmit}>
+      <Toaster position="top-center" reverseOrder={false} />
       <h3 className={css.blockFormTitel}>Book your car now</h3>
       <p className={css.blockFormText}>
         Stay connected! We are always ready to help you.

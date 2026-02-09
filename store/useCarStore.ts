@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { Car } from "@/types/cars";
+import { getFilteredCars } from "@/lib/carsService";
 
 interface FilterState {
   brand: string | null;
@@ -17,13 +18,15 @@ interface CarState {
   page: number;
   hasMore: boolean;
   filters: FilterState;
+  isLoading: boolean;
   setAllCars: (cars: Car[]) => void;
   addCars: (newCars: Car[]) => void;
   onFavorite: (id: string) => void;
   setPage: (page: number) => void;
   setHasMore: (hasMore: boolean) => void;
-  setFilters: (filters: FilterState) => void;
+  setFilters: (filters: FilterState) => Promise<void>;
   setRehydrated: (v: boolean) => void;
+  setIsLoading: (loading: boolean) => void;
 }
 
 export const useCarStore = create<CarState>()(
@@ -35,6 +38,7 @@ export const useCarStore = create<CarState>()(
       rehydrated: false,
       page: 1,
       hasMore: true,
+      isLoading: false,
       filters: {
         brand: null,
         price: null,
@@ -63,30 +67,23 @@ export const useCarStore = create<CarState>()(
 
       setHasMore: (hasMore) => set({ hasMore }),
 
-      setFilters: (filters) =>
-        set((state) => {
-          const { brand, price, mileageFrom, mileageTo } = filters;
+      setIsLoading: (loading) => set({ isLoading: loading }),
 
-          const filtered = state.allCars.filter((car) => {
-            const matchesBrand = brand ? car.brand === brand : true;
-            const matchesPrice = price
-              ? Number(car.rentalPrice.replace("$", "")) === Number(price)
-              : true;
-            const matchesFrom = mileageFrom
-              ? car.mileage >= Number(mileageFrom)
-              : true;
-            const matchesTo = mileageTo
-              ? car.mileage <= Number(mileageTo)
-              : true;
-
-            return matchesBrand && matchesPrice && matchesFrom && matchesTo;
+      setFilters: async (filters) => {
+        set({ isLoading: true, filters });
+        try {
+          const response = await getFilteredCars(filters, 1, 12);
+          set({
+            filteredCars: response.cars,
+            hasMore: response.cars.length === 12,
+            page: 1,
+            isLoading: false,
           });
-
-          return {
-            filters,
-            filteredCars: filtered,
-          };
-        }),
+        } catch (error) {
+          console.error("Error fetching filtered cars:", error);
+          set({ isLoading: false });
+        }
+      },
     }),
     {
       name: "car-storage",

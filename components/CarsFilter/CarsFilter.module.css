@@ -85,6 +85,26 @@
   display: none;
 }
 
+.clearIndicator {
+  padding: 0 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(18, 20, 23, 0.5);
+  transition: color 0.2s ease;
+}
+
+.clearIndicator:hover {
+  color: #121417;
+}
+
+.clearIndicator svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+}
+
 .option {
   color: rgba(18, 20, 23, 0.2);
   font-family: "Manrope", sans-serif;
