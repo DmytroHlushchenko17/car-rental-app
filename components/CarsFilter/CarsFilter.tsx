@@ -1,7 +1,7 @@
 "use client";
 import css from "./CarsFilter.module.css";
 import { useState, useMemo, useId } from "react";
-import Select, { components, ClearIndicatorProps } from "react-select";
+import Select, { ClearIndicatorProps } from "react-select";
 import { useCarStore } from "@/store/useCarStore";
 
 interface BrandOption {
