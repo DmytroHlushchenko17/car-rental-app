@@ -3,7 +3,6 @@ import css from "./CarsFilter.module.css";
 import { useState, useMemo, useId } from "react";
 import Select, { components, ClearIndicatorProps } from "react-select";
 import { useCarStore } from "@/store/useCarStore";
-import { removeSpaces } from "@/types/cars";
 
 interface BrandOption {
   value: string;
@@ -81,6 +80,32 @@ export default function CarsFilter() {
     });
   };
 
+  const handleBrandChange = (newValue: BrandOption | null) => {
+    setBrand(newValue);
+    if (newValue === null) {
+      setFilters({
+        brand: null,
+        price: price?.value || null,
+        mileageFrom,
+        mileageTo,
+      });
+    }
+  };
+
+  const handlePriceChange = (
+    newValue: { value: string; label: string } | null
+  ) => {
+    setPrice(newValue);
+    if (newValue === null) {
+      setFilters({
+        brand: brand?.value || null,
+        price: null,
+        mileageFrom,
+        mileageTo,
+      });
+    }
+  };
+
   const commonSelectProps = {
     unstyled: true,
     noOptionsMessage: () => "This car is not on the list",
@@ -131,7 +156,7 @@ export default function CarsFilter() {
           options={brandOptions}
           placeholder="Choose a brand"
           value={brand}
-          onChange={setBrand}
+          onChange={handleBrandChange}
         />
       </div>
 
@@ -147,7 +172,7 @@ export default function CarsFilter() {
           options={priceOptions}
           placeholder="Choose a price"
           value={price}
-          onChange={setPrice}
+          onChange={handlePriceChange}
         />
       </div>
 
@@ -160,7 +185,7 @@ export default function CarsFilter() {
               type="text"
               className={css.mileageInputLeft}
               value={mileageFrom}
-              onChange={(e) => setMileageFrom(removeSpaces(e.target.value))}
+              onChange={(e) => setMileageFrom(e.target.value.replace(/\D/g, ""))}
               disabled={isLoading}
             />
           </div>
@@ -170,7 +195,7 @@ export default function CarsFilter() {
               type="text"
               className={css.mileageInputRight}
               value={mileageTo}
-              onChange={(e) => setMileageTo(removeSpaces(e.target.value))}
+              onChange={(e) => setMileageTo(e.target.value.replace(/\D/g, ""))}
               disabled={isLoading}
             />
           </div>
