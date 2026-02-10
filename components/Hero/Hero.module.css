@@ -6,6 +6,7 @@
   background-position: center;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   padding-top: 436px;
   padding-right: 0;

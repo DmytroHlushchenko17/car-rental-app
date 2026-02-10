@@ -1,7 +1,7 @@
 .header {
   border-bottom: 1px solid #f2f4f7;
   padding: 24px 120px;
-  width: 1440px;
+  width: 100%;
   background: #f2f4f7;
   display: flex;
   justify-content: space-between;
@@ -16,14 +16,7 @@
   font-size: 16px;
   line-height: 125%;
   text-align: center;
-  color: #101828;
-  &:focus {
-    color: #0b44cd;
-  }
-
-  &:hover {
-    color: #0b44cd;
-  }
+  color: #0b44cd;
 }
 
 .navCatalog {

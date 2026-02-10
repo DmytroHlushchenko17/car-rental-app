@@ -1,4 +1,3 @@
-import css from "./Home.module.css";
 import Hero from "@/components/Hero/Hero";
 import { Metadata } from "next";
 
@@ -10,7 +9,7 @@ export const metadata: Metadata = {
 
 const Home = () => {
   return (
-    <div className={css["page"]}>
+    <div className="container">
       <Hero />
     </div>
   );

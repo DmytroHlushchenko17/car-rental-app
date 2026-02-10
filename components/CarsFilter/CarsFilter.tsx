@@ -14,9 +14,11 @@ interface PriceOption {
   label: string;
 }
 
-const CustomClearIndicator = (props: ClearIndicatorProps<any>) => {
+const CustomClearIndicator = (
+  props: ClearIndicatorProps<BrandOption | PriceOption, false>
+) => {
   return (
-    <div {...(props.innerProps as any)} className={css.clearIndicator}>
+    <div {...props.innerProps} className={css.clearIndicator}>
       <svg
         width="18"
         height="18"
@@ -70,13 +72,18 @@ export default function CarsFilter() {
     return prices;
   }, []);
 
+  const formatNumber = (value: string) => {
+    const raw = value.replace(/\D/g, "");
+    return raw.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
     await setFilters({
       brand: brand?.value || null,
       price: price?.value || null,
-      mileageFrom,
-      mileageTo,
+      mileageFrom: mileageFrom.replace(/,/g, ""),
+      mileageTo: mileageTo.replace(/,/g, ""),
     });
   };
 
@@ -86,8 +93,8 @@ export default function CarsFilter() {
       setFilters({
         brand: null,
         price: price?.value || null,
-        mileageFrom,
-        mileageTo,
+        mileageFrom: mileageFrom.replace(/,/g, ""),
+        mileageTo: mileageTo.replace(/,/g, ""),
       });
     }
   };
@@ -100,8 +107,8 @@ export default function CarsFilter() {
       setFilters({
         brand: brand?.value || null,
         price: null,
-        mileageFrom,
-        mileageTo,
+        mileageFrom: mileageFrom.replace(/,/g, ""),
+        mileageTo: mileageTo.replace(/,/g, ""),
       });
     }
   };
@@ -185,7 +192,7 @@ export default function CarsFilter() {
               type="text"
               className={css.mileageInputLeft}
               value={mileageFrom}
-              onChange={(e) => setMileageFrom(e.target.value.replace(/\D/g, ""))}
+              onChange={(e) => setMileageFrom(formatNumber(e.target.value))}
               disabled={isLoading}
             />
           </div>
@@ -195,7 +202,7 @@ export default function CarsFilter() {
               type="text"
               className={css.mileageInputRight}
               value={mileageTo}
-              onChange={(e) => setMileageTo(e.target.value.replace(/\D/g, ""))}
+              onChange={(e) => setMileageTo(formatNumber(e.target.value))}
               disabled={isLoading}
             />
           </div>
