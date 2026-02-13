@@ -29,6 +29,11 @@
   width: 100%;
 }
 .blockFormInput {
+  font-family: "Manrope", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  color: #8d929a;
   border-radius: 12px;
   padding: 12px 20px;
   min-width: 576px;
@@ -40,6 +45,11 @@
   width: 100%;
 }
 .blockFormInputTextarea {
+  font-family: "Manrope", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  color: #8d929a;
   border-radius: 12px;
   padding: 12px 20px 56px;
   min-width: 576px;
