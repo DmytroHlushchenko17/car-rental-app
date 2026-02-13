@@ -27,6 +27,8 @@ export async function generateMetadata({
 const CarDetails = async ({ params }: CarDetailsProps) => {
   const { carId } = await params;
   const carDetails = await getCarDetails(carId);
+  const location = carDetails.address.split(", ").slice(1).join(", ");
+
   return (
     <section className="container">
       <div className={css.carDetailsBlock}>
@@ -47,15 +49,14 @@ const CarDetails = async ({ params }: CarDetailsProps) => {
             <span className={css.carListItemModel}>{carDetails.model}</span>,{" "}
             {carDetails.year}
             <span className={css.carDetailsBlockDetailsId}>
-              id:{" "}{carDetails.id}
+              id: {carDetails.id}
             </span>
           </p>
           <p className={css.carDetailsBlockDetailsAddress}>
             <svg className={css.locationIcon} width="16" height="16">
               <use href="/Icoms.svg#Location" />
             </svg>
-            {carDetails.address}{" "}|{" "}Mileage:{" "}
-            {formatMileage(carDetails.mileage)}
+            {location} | Mileage: {formatMileage(carDetails.mileage)}
           </p>
           <p className={css.carDetailsBlockDetailsPrice}>
             ${carDetails.rentalPrice}
